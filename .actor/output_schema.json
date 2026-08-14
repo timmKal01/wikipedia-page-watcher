@@ -1,0 +1,11 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Output schema of Wikipedia Page Watcher",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Edits",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}
