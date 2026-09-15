@@ -1,6 +1,42 @@
 const UA = 'WikipediaPageWatcher/0.1 (+contact: wikipedia-page-watcher-admin@example.com)';
 const REVERT_PATTERN = /\b(undo|undid|revert|rv)\b/i;
 
+const TRANSIENT_STATUSES = new Set([429, 500, 502, 503, 504]);
+const MAX_ATTEMPTS = 4;
+const REQUEST_TIMEOUT_MS = 15_000;
+
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function fetchWithRetry(url) {
+    let lastError;
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+        let res;
+        try {
+            res = await fetch(url, { headers: { 'User-Agent': UA, Connection: 'close' }, signal: controller.signal });
+        } catch (err) {
+            lastError = err.name === 'AbortError' ? new Error(`Request timed out after ${REQUEST_TIMEOUT_MS}ms: ${url}`) : err;
+            if (attempt < MAX_ATTEMPTS) {
+                await sleep(1000 * 2 ** (attempt - 1));
+                continue;
+            }
+            throw lastError;
+        } finally {
+            clearTimeout(timeoutId);
+        }
+        if (res.ok) return res;
+        if (!TRANSIENT_STATUSES.has(res.status)) {
+            throw new Error(`Wikipedia API request failed: ${res.status} ${res.statusText}`);
+        }
+        lastError = new Error(`Wikipedia API request failed: ${res.status} ${res.statusText}`);
+        if (attempt < MAX_ATTEMPTS) await sleep(1000 * 2 ** (attempt - 1));
+    }
+    throw lastError;
+}
+
 function toIsoTimestamp(date) {
     return date.toISOString();
 }
@@ -18,10 +54,7 @@ export async function fetchEdits({ pageTitle, language, startDate, maxResults })
     url.searchParams.set('rvdir', 'older');
     url.searchParams.set('format', 'json');
 
-    const res = await fetch(url, { headers: { 'User-Agent': UA, Connection: 'close' } });
-    if (!res.ok) {
-        throw new Error(`Wikipedia API request failed: ${res.status} ${res.statusText}`);
-    }
+    const res = await fetchWithRetry(url);
     const body = await res.json();
     const page = Object.values(body.query?.pages ?? {})[0];
     if (!page || page.missing !== undefined) {
