@@ -1,7 +1,7 @@
 {
     "actorSpecification": 1,
     "name": "wikipedia-page-watcher",
-    "title": "Wikipedia Page Watcher — Edit History Tracker",
+    "title": "Wikipedia Edit Tracker for Any Page",
     "description": "Track recent edits to any Wikipedia page: who made the change, when, how much text changed, and whether it looks like a revert. For PR, comms, and research teams watching a brand, person, or topic page.",
     "version": "0.1",
     "meta": {
