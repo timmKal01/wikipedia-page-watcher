@@ -7,7 +7,9 @@
             "title": "Page title",
             "type": "string",
             "editor": "textfield",
-            "description": "Exact Wikipedia page title, e.g. \"Tesla, Inc.\" or \"Elon Musk\". Must match the page's actual title (check the URL after /wiki/ if unsure)."
+            "description": "Exact Wikipedia page title, e.g. \"Tesla, Inc.\" or \"Elon Musk\". Must match the page's actual title (check the URL after /wiki/ if unsure).",
+            "prefill": "Tesla, Inc.",
+            "default": "Tesla, Inc."
         },
         "language": {
             "title": "Language edition",
