@@ -1,0 +1,78 @@
+{
+    "actorSpecification": 1,
+    "fields": {},
+    "views": {
+        "overview": {
+            "title": "Overview",
+            "transformation": {
+                "fields": [
+                    "pageTitle",
+                    "revisionId",
+                    "parentRevisionId",
+                    "user",
+                    "isAnonymous",
+                    "isMinorEdit",
+                    "timestamp",
+                    "sizeBytes",
+                    "sizeChangeBytes",
+                    "comment",
+                    "looksLikeRevert",
+                    "diffUrl"
+                ]
+            },
+            "display": {
+                "component": "table",
+                "properties": {
+                    "pageTitle": {
+                        "label": "Page title",
+                        "format": "text"
+                    },
+                    "revisionId": {
+                        "label": "Revision ID",
+                        "format": "number"
+                    },
+                    "parentRevisionId": {
+                        "label": "Parent revision ID",
+                        "format": "number"
+                    },
+                    "user": {
+                        "label": "User",
+                        "format": "text"
+                    },
+                    "isAnonymous": {
+                        "label": "Is anonymous",
+                        "format": "boolean"
+                    },
+                    "isMinorEdit": {
+                        "label": "Is minor edit",
+                        "format": "boolean"
+                    },
+                    "timestamp": {
+                        "label": "Timestamp",
+                        "format": "date"
+                    },
+                    "sizeBytes": {
+                        "label": "Size bytes",
+                        "format": "number"
+                    },
+                    "sizeChangeBytes": {
+                        "label": "Size change bytes",
+                        "format": "number"
+                    },
+                    "comment": {
+                        "label": "Comment",
+                        "format": "text"
+                    },
+                    "looksLikeRevert": {
+                        "label": "Looks like revert",
+                        "format": "boolean"
+                    },
+                    "diffUrl": {
+                        "label": "Diff URL",
+                        "format": "link"
+                    }
+                }
+            }
+        }
+    }
+}
