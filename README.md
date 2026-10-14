@@ -70,5 +70,5 @@ search returns 0 edits or 100.
 
 ## Related products
 
-- [News Intelligence Crawler](https://github.com/timmKal01/news-intelligence-crawler) — broader news coverage for the same brand/person monitoring use case
-- [Wikipedia Pageviews Tracker](https://github.com/timmKal01/wikipedia-pageviews-tracker) — tracks traffic/attention on a page, not edits
+- [News Mention Monitor](https://apify.com/m_ctim/news-intelligence-crawler): broader news coverage for the same brand/person monitoring use case
+- [Wikipedia Pageviews](https://apify.com/m_ctim/wikipedia-pageviews-tracker): tracks traffic/attention on a page, not edits
